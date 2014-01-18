@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="foundation.ESpesaExtra" table="ESpesaExtra" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="eProgetto" cascade="lock" column="EProgettoID" class="foundation.EProgetto" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<many-to-one name="eSottoprogetto" cascade="lock" column="ESottoprogettoID" class="foundation.ESottoprogetto" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<property name="tag" column="Tag" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="importo" column="Importo" type="double" length="10" not-null="true" lazy="false"/>
+		<property name="descrizione" column="Descrizione" type="string" length="255" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>
