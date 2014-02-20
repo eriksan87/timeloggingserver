@@ -76,9 +76,7 @@ public class ETaskConcreteMapper extends EntityMappersFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("idTask:"+task.getID());
-		System.out.println("tariffe_lenght:"+tariffe.length);
-		System.out.println();
+		
 		for (int i=0;i<tariffe.length;i++)
 		{
 			ETariffaCondivisa tar=(ETariffaCondivisaImp) ETariffeConcreteMapper.getInstance().HibernateToIceFactory(tariffe[i]);

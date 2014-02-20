@@ -239,6 +239,7 @@ public class ListTimeLoggingData {
 			ListTimeLoggingData listTimeLoggingData = new ListTimeLoggingData();
 			try {
 				listTimeLoggingData.listTestData();
+			
 				//listTimeLoggingData.listByCriteria();
 			}
 			finally {

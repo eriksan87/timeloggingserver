@@ -41,16 +41,21 @@ public class ServerMain  {
 	ic.addObjectFactory( new EntityFactory(), EAdminCondiviso.ice_staticId());
 	ic.addObjectFactory( new EntityFactory(), EConsulenteCondiviso.ice_staticId());
 	ic.addObjectFactory( new EntityFactory(), ETariffaCondivisa.ice_staticId());
+	
 	// Create un oggetto adapter (stored in the _adapter static members)
 		
-	Ice.ObjectAdapter adapter= ic.createObjectAdapterWithEndpoints("TLogging", "tcp -h localhost -p 10104");
+	Ice.ObjectAdapter adapter= ic.createObjectAdapterWithEndpoints("TLogging", "tcp -h 192.168.1.39 -p 10104");
 		
 	//aggiungo all'adapter un oggetto TimeRecordManagerI() 
 	
 	adapter.add(new TimeRecordManagerI(), ic.stringToIdentity("TimeRecordManager"));
 	adapter.add(new AttivitaManagerI(), ic.stringToIdentity("AttivitaManager"));
 	adapter.add(new LoginManagerI(), ic.stringToIdentity("LoginManager"));
-    
+	
+	adapter.add(new ClienteManagerI(), ic.stringToIdentity("ClienteManager"));
+	adapter.add(new ManagerManagerI(), ic.stringToIdentity("ManagerManager"));
+	adapter.add(new ConsulenteManagerI(), ic.stringToIdentity("ConsulenteManager"));
+	
 	//attivo l'adapter
 	adapter.activate();
 	// In Attesa...

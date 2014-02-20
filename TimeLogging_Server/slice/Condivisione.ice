@@ -244,6 +244,17 @@ class ETimeRecordNonLavorativoCondiviso extends ETimeRecordCondiviso
 	
 	["java:type:java.util.ArrayList<Condivisione.EntityCondivise.EProgettoCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.EProgettoCondiviso>"]
     sequence<::Condivisione::EntityCondivise::EProgettoCondiviso> listaProgetti;
+    
+    ["java:type:java.util.ArrayList<Condivisione.EntityCondivise.EClienteCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.EClienteCondiviso>"]
+    sequence<::Condivisione::EntityCondivise::EClienteCondiviso> listaClienti;
+    
+    ["java:type:java.util.ArrayList<Condivisione.EntityCondivise.EManagerCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.EManagerCondiviso>"]
+    sequence<::Condivisione::EntityCondivise::EManagerCondiviso> listaManager;
+    
+    
+    ["java:type:java.util.ArrayList<Condivisione.EntityCondivise.EConsulenteCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.EConsulenteCondiviso>"]
+    sequence<::Condivisione::EntityCondivise::EConsulenteCondiviso> listaConsulenti;
+    
 };
 	
 	
@@ -255,8 +266,6 @@ interface TimeRecordManager{
 		int save(::Condivisione::EntityCondivise::ETimeRecordCondiviso e);
 		void elimina (::Condivisione::EntityCondivise::ETimeRecordCondiviso e);
 		::Condivisione::EntityCondivise::listaTR getListTR(int idprogetto, int idsottoprogetto, int idtask, string dal, string al, string ultimi,bool lavorativo, bool nonlavorativo, string categoria,::Condivisione::EntityCondivise::EDipendenteCondiviso dip);
-		
- 
 	};
 	
 interface AttivitaManager{
@@ -269,11 +278,42 @@ interface AttivitaManager{
 	    ::Condivisione::EntityCondivise::listaTask getListTask(int idsottoprogetto,bool abilitati,::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
 	   
 	};
+	
 interface LoginManager{
 		
 		int authenticationRequest (string username, string password);
 		::Condivisione::EntityCondivise::EDipendenteCondiviso IdentityRequest (int id);
 		void sessionDestroy(int id);
+	};
+	
+interface ClienteManager
+	{
+		//CRUD Cliente Create-Read-Update-Delete
+   		void createCliente(string nome,string cognome,string indirizzo);
+   		void UpdateCliente(::Condivisione::EntityCondivise::EClienteCondiviso e);
+   		::Condivisione::EntityCondivise::listaClienti getListClienti();
+   		void deleteCliente(::Condivisione::EntityCondivise::EClienteCondiviso e);
+	};
+
+interface ManagerManager
+	{
+		//CRUD Manager Create-Read-Update-Delete
+  
+   		void createManager(string nome,string cognome,string indirizzo,double pagaBase, string figProfessionale, int anzianita, string tag, string username, string password);
+   		void UpdateManager(::Condivisione::EntityCondivise::EManagerCondiviso e);
+   		::Condivisione::EntityCondivise::listaManager getListManager();
+   		void deleteManager(::Condivisione::EntityCondivise::EManagerCondiviso e);
+   		
+	};
+
+interface ConsulenteManager
+	{
+		//CRUD Conselente Create-Read-Update-Delete
+		
+   		void createConsulente(string nome,string cognome,string indirizzo);
+   		void UpdateConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso e);
+   		::Condivisione::EntityCondivise::listaConsulenti getListConsulenti();
+   		void deleteConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso e);
 	};
 };
 };
