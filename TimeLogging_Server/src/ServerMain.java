@@ -1,25 +1,16 @@
-import Condivisione.*;
-
 import Condivisione.EntityCondivise.EAdminCondiviso;
 import Condivisione.EntityCondivise.EClienteCondiviso;
 import Condivisione.EntityCondivise.EConsulenteCondiviso;
-import Condivisione.EntityCondivise.EDipendenteCondiviso;
 import Condivisione.EntityCondivise.EManagerCondiviso;
 import Condivisione.EntityCondivise.EProgettoCondiviso;
 import Condivisione.EntityCondivise.ESottoprogettoCondiviso;
 import Condivisione.EntityCondivise.ETariffaCondivisa;
 import Condivisione.EntityCondivise.ETaskCondiviso;
-import Condivisione.EntityCondivise.ETimeRecordCondiviso;
 import Condivisione.EntityCondivise.ETimeRecordLavorativoCondiviso;
 import Condivisione.EntityCondivise.ETimeRecordNonLavorativoCondiviso;
-import EntityCondivise.ETaskCondivisoImp;
-
 import EntityCondivise.EntityFactory;
 import EntityNonCondivise.Sessione;
-import Ice.ObjectFactory;
 import Servants.*;
-
-//import root.TLAppServer;
 
 
 
@@ -44,13 +35,14 @@ public class ServerMain  {
 	
 	// Create un oggetto adapter (stored in the _adapter static members)
 		
-	Ice.ObjectAdapter adapter= ic.createObjectAdapterWithEndpoints("TLogging", "tcp -h 192.168.1.39 -p 10104");
+	Ice.ObjectAdapter adapter= ic.createObjectAdapterWithEndpoints("TLogging", "tcp -h 192.168.1.6 -p 10104");
 		
 	//aggiungo all'adapter un oggetto TimeRecordManagerI() 
 	
 	adapter.add(new TimeRecordManagerI(), ic.stringToIdentity("TimeRecordManager"));
 	adapter.add(new AttivitaManagerI(), ic.stringToIdentity("AttivitaManager"));
 	adapter.add(new LoginManagerI(), ic.stringToIdentity("LoginManager"));
+	
 	
 	adapter.add(new ClienteManagerI(), ic.stringToIdentity("ClienteManager"));
 	adapter.add(new ManagerManagerI(), ic.stringToIdentity("ManagerManager"));

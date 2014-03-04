@@ -374,9 +374,4 @@ public class TimeRecordManagerI extends  _TimeRecordManagerDisp {
 		
 	}
 
-
-
-
-		
-
 }

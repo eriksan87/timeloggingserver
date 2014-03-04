@@ -255,6 +255,11 @@ class ETimeRecordNonLavorativoCondiviso extends ETimeRecordCondiviso
     ["java:type:java.util.ArrayList<Condivisione.EntityCondivise.EConsulenteCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.EConsulenteCondiviso>"]
     sequence<::Condivisione::EntityCondivise::EConsulenteCondiviso> listaConsulenti;
     
+    
+    
+    
+    
+    
 };
 	
 	
@@ -276,6 +281,11 @@ interface AttivitaManager{
 	    ::Condivisione::EntityCondivise::listaProgetti getListProgetti(::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente,bool abilitati);
 		::Condivisione::EntityCondivise::listaSottoProgetti getListSottoProgetti(int idprogetto,::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente,bool abilitati);
 	    ::Condivisione::EntityCondivise::listaTask getListTask(int idsottoprogetto,bool abilitati,::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
+	   	
+	   	::Condivisione::EntityCondivise::listaTask getAllTask();
+	   	::Condivisione::EntityCondivise::listaSottoProgetti getAllSp(::Condivisione::EntityCondivise::EManagerCondiviso manager);
+	   	
+	   	void eliminaAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa attivita);
 	   
 	};
 	
@@ -293,6 +303,8 @@ interface ClienteManager
    		void UpdateCliente(::Condivisione::EntityCondivise::EClienteCondiviso e);
    		::Condivisione::EntityCondivise::listaClienti getListClienti();
    		void deleteCliente(::Condivisione::EntityCondivise::EClienteCondiviso e);
+   		::Condivisione::EntityCondivise::listaProgetti getListProgetti(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
+   		
 	};
 
 interface ManagerManager
@@ -303,6 +315,7 @@ interface ManagerManager
    		void UpdateManager(::Condivisione::EntityCondivise::EManagerCondiviso e);
    		::Condivisione::EntityCondivise::listaManager getListManager();
    		void deleteManager(::Condivisione::EntityCondivise::EManagerCondiviso e);
+   		::Condivisione::EntityCondivise::listaSottoProgetti getListSottoprogetti(::Condivisione::EntityCondivise::EManagerCondiviso manager);
    		
 	};
 
@@ -312,8 +325,10 @@ interface ConsulenteManager
 		
    		void createConsulente(string nome,string cognome,string indirizzo);
    		void UpdateConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso e);
-   		::Condivisione::EntityCondivise::listaConsulenti getListConsulenti();
+   		::Condivisione::EntityCondivise::listaConsulenti getListConsulenti(::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
    		void deleteConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso e);
+   		::Condivisione::EntityCondivise::listaTask getListTask(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente);
+   		
 	};
 };
 };

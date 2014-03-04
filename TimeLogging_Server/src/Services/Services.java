@@ -5,14 +5,21 @@ import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
+
+import Condivisione.EntityCondivise.EConsulenteCondiviso;
 import Condivisione.EntityCondivise.EDipendenteCondiviso;
 import Condivisione.EntityCondivise.EProgettoCondiviso;
+import EntityCondivise.EConsulenteCondivisoImp;
+import EntityCondivise.EProgettoCondivisoImp;
+import foundation.EDipendente;
 import foundation.EProgetto;
+import foundation.EProgettoDAO;
 import foundation.ESottoprogetto;
 import foundation.ETask;
 import foundation.ETimeRecordLavorativo;
 import foundation.ETimeRecordNL;
 public class Services {
+	
 	public static ArrayList<ETimeRecordLavorativo> timerecordLavorativoDipendente(int idprogetto,
 			int idsottoprogetto, int idtask, String dal, String al,EDipendenteCondiviso dip){
 		
@@ -42,6 +49,7 @@ public class Services {
 		try {
 			inizio=MyDateTime.stringToTimestamp(dal, "00", "00");
 			fine=MyDateTime.stringToTimestamp(al, "23", "59");
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			
@@ -255,5 +263,48 @@ public class Services {
 		return task;
 	}
 	
+	
+	public static EConsulenteCondiviso getConsulenti(int id) 
+	{
+		String sql="select * " +
+			"from edipendete "+
+			"where edipendente.Id="+id;
+		
+		EConsulenteCondiviso consulente=new EConsulenteCondivisoImp();
+		try {
+			consulente = (EConsulenteCondiviso) foundation.TimeLoggingPersistentManager.instance().getSession().createSQLQuery(sql).addEntity("EDipendente",EDipendente.class).list();
+			} 
+	  catch (HibernateException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+	} catch (PersistentException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return null;
+   }
+	
+	
+	public static void eliminaProgetto(EProgettoCondivisoImp progetto)
+	{
+			
+		EProgetto eProgetto=null;
+		
+		try {
+		  eProgetto = EProgettoDAO.loadEProgettoByQuery("ID="+progetto.id, null);
+		} 
+		catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Delete the persistent object
+		try {
+			foundation.EProgettoDAO.delete(eProgetto);
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

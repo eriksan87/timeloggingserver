@@ -29,6 +29,7 @@ import foundation.ETimeRecordLavorativo;
 
 import Condivisione.EntityCondivise.EAttivitaCondivisa;
 import Condivisione.EntityCondivise.EDipendenteCondiviso;
+import Condivisione.EntityCondivise.EManagerCondiviso;
 import Condivisione.EntityCondivise.EProgettoCondiviso;
 import Condivisione.EntityCondivise.ESottoprogettoCondiviso;
 import Condivisione.EntityCondivise.ETariffaCondivisa;
@@ -219,6 +220,88 @@ public ETaskCondiviso getTask(ETaskCondiviso task,
 	return task;
 	
 }
+
+
+
+@Override
+public ArrayList<ETaskCondiviso> getAllTask(Current __current) {
+	// TODO Auto-generated method stub
+	try{
+	foundation.ETask foundationTask[] = foundation.ETaskDAO.listETaskByQuery(null, null);
+	
+	ArrayList<ETaskCondiviso> list = new ArrayList<ETaskCondiviso>();
+	
+	for(int j = 0; j < foundationTask.length; j++)
+	{
+			
+		list.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationTask[j])); 
+	}
+	return list;
+	
+	}
+
+	catch (Exception e) {
+	e.printStackTrace();
+	}
+	return null;
+}
+
+
+
+@Override
+public ArrayList<ESottoprogettoCondiviso>getAllSp(EManagerCondiviso manager,
+		Current __current) {
+	// TODO Auto-generated method stub
+	
+	try{
+		foundation.ESottoprogetto foundationSottoprogetto[]=foundation.ESottoprogettoDAO.listESottoprogettoByQuery(null,null);
+		
+		ArrayList<ESottoprogettoCondiviso> list = new ArrayList<ESottoprogettoCondiviso>();	
+		
+		for (int i = 0; i < foundationSottoprogetto.length; i++) 
+		{ 
+			if(foundationSottoprogetto[i].geteDipendente().getID()==manager.getId())
+			 	list.add((ESottoprogettoCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationSottoprogetto[i])); 
+		}
+		
+		return list;
+		}
+	
+		catch (Exception e) {
+		e.printStackTrace();
+		}
+		return null;
+}
+
+
+
+@Override
+public void eliminaAttivita(EAttivitaCondivisa attivita, Current __current) {
+	// TODO Auto-generated method stub
+	
+	if(attivita.getClass().toString().equals(EProgettoCondivisoImp.class.toString()))
+	{
+		//elimina progetto,sottoprogetti,task,etask_dipendente,tariffa
+		Services.eliminaProgetto((EProgettoCondivisoImp) attivita);
+		
+	}
+	
+	if(attivita.getClass().toString().equals(ESottoprogettoCondivisoImp.class.toString()))
+	{
+		//elimina sottoprogetto e i suoi task 
+	}
+	
+	if(attivita.getClass().toString().equals(ETaskCondivisoImp.class.toString()))
+	{
+		//
+	}
+
+	
+	
+	
+}
+
+
 	
 	
 }
