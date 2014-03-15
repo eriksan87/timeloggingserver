@@ -1,6 +1,6 @@
 package EntityNonCondivise;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import Condivisione.EntityCondivise.EConsulenteCondiviso;
@@ -10,24 +10,17 @@ import EntityCondivise.EConsulenteCondivisoImp;
 public class Sessione {
 
 	private static Sessione istanza=null; //la sessione è singleton
-	
-	
-	private HashMap<Integer,EDipendenteCondiviso> elencoLoggati;
-	
+	private ArrayList<EDipendenteCondiviso> elencoLoggati;
 	
 	protected Sessione()
 	{   
-		
-		EDipendenteCondiviso dip=new EConsulenteCondivisoImp();
-		dip.setNome("Antonio");
-		elencoLoggati=new HashMap<Integer,EDipendenteCondiviso>();
-		elencoLoggati.put(1, dip);
+		elencoLoggati = new ArrayList<EDipendenteCondiviso>();
 	}
 	
 	
 	public void aggiungiLoggato(EDipendenteCondiviso dipendente)
 	{
-		elencoLoggati.put(dipendente.getId(),dipendente);
+		elencoLoggati.add(dipendente);
 	}
 	
 	
@@ -42,25 +35,40 @@ public class Sessione {
 	}
 	
 	public boolean checkGiaLoggato(String username)
-	{	  
-		Iterator i=elencoLoggati.keySet().iterator();
-		while(i.hasNext())
+	{	
+		for(int i=0;i<elencoLoggati.size();i++)
 		{
-		  int key= (Integer) i.next();
-		  if(elencoLoggati.get(key).getNome().equals(username))
-		  	{
-			  return true;
-		  	}
+			if(elencoLoggati.get(i).getUsername().equals(username))
+			{
+				return true;
+			}
 		}
+		
 	  return false;	
 	}
 	
 	
 	public EDipendenteCondiviso getIdentitaDipendente(int id)
-	{
-		return elencoLoggati.get(id);
+	{  
+		for(int i=0;i<elencoLoggati.size();i++)
+		{
+			if(elencoLoggati.get(i).getId()==id)
+			{
+				return elencoLoggati.get(i) ;
+			}
+		}
+		return null;	
 	}
 	
-	public void sessionDestroy(int id) { elencoLoggati.remove(id); }
-	
+	public void sessionDestroy(int id) { 
+		
+		for(int i=0;i<elencoLoggati.size();i++)
+		{
+			if(elencoLoggati.get(i).getId()==id)
+			{
+			 elencoLoggati.remove(i);
+			}
+		}
+	}		
+		
 }

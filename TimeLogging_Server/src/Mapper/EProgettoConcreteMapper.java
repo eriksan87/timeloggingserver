@@ -1,10 +1,12 @@
 package Mapper;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import org.orm.PersistentException;
 
 import Condivisione.EntityCondivise.EProgettoCondiviso;
+import Condivisione.EntityCondivise.ESottoprogettoCondiviso;
 import Condivisione.EntityCondivise.EntityCondivisa;
 import EntityCondivise.EAdminCondivisoImp;
 import EntityCondivise.EClienteCondivisoImp;
@@ -52,7 +54,8 @@ public class EProgettoConcreteMapper extends EntityMappersFactory {
 		pc.setPadre(null);
 		pc.setScadenza(p.getScadenza());
 		pc.setTitolo(p.getTitolo());
-		
+		ArrayList<ESottoprogettoCondiviso> listasp=new ArrayList<ESottoprogettoCondiviso>();
+		pc.setlistSp(listasp);
 	
 		foundation.EProroga[] foundationEProroga = null;
 		try {

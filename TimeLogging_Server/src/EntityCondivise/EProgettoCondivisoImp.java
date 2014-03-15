@@ -21,7 +21,7 @@ public class EProgettoCondivisoImp extends EProgettoCondiviso {
 	   public EProgettoCondivisoImp(int id, String titolo, String descrizione, double budget, java.sql.Timestamp inizio, java.sql.Timestamp scadenza, EDipendenteCondiviso dipendente, java.util.ArrayList<ESottoprogettoCondiviso> listaSp, EClienteCondiviso cliente, EAttivitaCondivisa padre,Timestamp[] proroghe)
 	    {
 	  
-	       super(id, titolo, descrizione, budget, inizio, scadenza, dipendente, padre,0,cliente,listaSp,proroghe);
+	       super(id, titolo, descrizione, budget, inizio, scadenza, dipendente, padre,0,cliente,listaSp,proroghe,0);
 	        
 	    }
 	    
@@ -155,18 +155,7 @@ public class EProgettoCondivisoImp extends EProgettoCondiviso {
 	@Override
 	public double elaboraCosti(Current __current) {
 		// TODO Auto-generated method stub
-		
-		//ciclo for che scorre tutta la lista dei sottoprogetti
-		
-		for(int i=0; i<this.listSp.size(); i++)
-		{
-			this.costo=this.costo+listSp.get(i).elaboraCosti(); 
-			System.out.println("costo progetto:"+this.costo);
-		}
-		
-		
-		
-		return this.costo;
+	return 0;
 	}
 	@Override
 	public void setlistSp(ArrayList<ESottoprogettoCondiviso> listSp,
@@ -209,6 +198,20 @@ public class EProgettoCondivisoImp extends EProgettoCondiviso {
 	public void setProroghe(Timestamp[] p, Current __current) {
 		// TODO Auto-generated method stub
 		this.proroga=p;
+	}
+
+
+	@Override
+	public double elaboraGuadagno(Current __current) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public double elaboraFattura(Current __current) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

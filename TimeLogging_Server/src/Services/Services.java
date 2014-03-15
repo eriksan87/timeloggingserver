@@ -11,11 +11,15 @@ import Condivisione.EntityCondivise.EDipendenteCondiviso;
 import Condivisione.EntityCondivise.EProgettoCondiviso;
 import EntityCondivise.EConsulenteCondivisoImp;
 import EntityCondivise.EProgettoCondivisoImp;
+import EntityCondivise.ESottoprogettoCondivisoImp;
+import EntityCondivise.ETaskCondivisoImp;
 import foundation.EDipendente;
 import foundation.EProgetto;
 import foundation.EProgettoDAO;
 import foundation.ESottoprogetto;
+import foundation.ESottoprogettoDAO;
 import foundation.ETask;
+import foundation.ETaskDAO;
 import foundation.ETimeRecordLavorativo;
 import foundation.ETimeRecordNL;
 public class Services {
@@ -59,7 +63,6 @@ public class Services {
 		
 		sql=sql+" etimerecordlavorativo.inizio between '"+inizio.toString()+"' and '"+fine.toString()+ "' " +
 				"and edipendente_etask.EDipendenteID="+dip.id+" order by etimerecordlavorativo.inizio desc";
-		System.out.println(sql);
 		try {
 			tr = (ArrayList<ETimeRecordLavorativo>)  foundation.TimeLoggingPersistentManager.instance().getSession().createSQLQuery(sql).addEntity("ETimeRecordLavorativo",ETimeRecordLavorativo.class).list();
 		} catch (HibernateException e) {
@@ -306,5 +309,45 @@ public class Services {
 		}
 		
 	}
+	public static void eliminaSottoprogetto(ESottoprogettoCondivisoImp sottoprogetto)
+	{
+		ESottoprogetto eSottoprogetto=null;
+		try {
+			eSottoprogetto = ESottoprogettoDAO.loadESottoprogettoByQuery("ID="+sottoprogetto.id, null);
+		} 
+		catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Delete the persistent object
+		try {
+			foundation.ESottoprogettoDAO.delete(eSottoprogetto);
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	
+	public static void eliminaTask(ETaskCondivisoImp task)
+	{
+		ETask eTask=null;
+		try {
+			eTask = ETaskDAO.loadETaskByQuery("ID="+task.id, null);
+		} 
+		catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Delete the persistent object
+		try {
+			foundation.ETaskDAO.delete(eTask);
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	
 	
 }

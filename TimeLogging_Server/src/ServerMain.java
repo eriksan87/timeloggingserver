@@ -45,9 +45,8 @@ public class ServerMain  {
 	
 	
 	adapter.add(new ClienteManagerI(), ic.stringToIdentity("ClienteManager"));
-	adapter.add(new ManagerManagerI(), ic.stringToIdentity("ManagerManager"));
-	adapter.add(new ConsulenteManagerI(), ic.stringToIdentity("ConsulenteManager"));
-	
+	adapter.add(new DipendenteManagerI(), ic.stringToIdentity("DipendenteManager"));
+	adapter.add(new FatturaManagerI(), ic.stringToIdentity("FatturaManager"));
 	//attivo l'adapter
 	adapter.activate();
 	// In Attesa...

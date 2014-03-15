@@ -1,10 +1,13 @@
 package Mapper;
 
+import java.util.ArrayList;
+
 import org.orm.PersistentException;
 
 import Condivisione.EntityCondivise.EAttivitaCondivisa;
 import Condivisione.EntityCondivise.EDipendenteCondiviso;
 import Condivisione.EntityCondivise.EProgettoCondiviso;
+import Condivisione.EntityCondivise.ETaskCondiviso;
 import Condivisione.EntityCondivise.EntityCondivisa;
 import EntityCondivise.EManagerCondivisoImp;
 import EntityCondivise.EProgettoCondivisoImp;
@@ -49,6 +52,9 @@ public class ESottoprogettoConcreteMapper extends EntityMappersFactory {
 				,sottoprogetto.getScadenza(),dipIce, null,progIce);
 		
 		sottoprogettoCondivisoImp.setId(sottoprogetto.getID());
+		
+		ArrayList<ETaskCondiviso> listTasks=new ArrayList<ETaskCondiviso>();
+		sottoprogettoCondivisoImp.setlistTask(listTasks);
 		
 		return sottoprogettoCondivisoImp;
 	}

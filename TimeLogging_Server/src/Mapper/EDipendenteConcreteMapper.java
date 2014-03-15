@@ -37,17 +37,17 @@ public class EDipendenteConcreteMapper extends EntityMappersFactory{
 		
 		if(dipendente.getTag().equals("admin"))
 		{
-		dipendenteCondivisoImp = new EAdminCondivisoImp(dipendente.getID(),dipendente.getNome(),dipendente.getCognome(),dipendente.getIndirizzo(),dipendente.getPaga_base(),dipendente.getFig_professionale(),Integer.parseInt(dipendente.getAnzianita()),dipendente.getTag(),null,null);
+		dipendenteCondivisoImp = new EAdminCondivisoImp(dipendente.getID(),dipendente.getNome(),dipendente.getCognome(),dipendente.getIndirizzo(),dipendente.getPaga_base(),dipendente.getFig_professionale(),Integer.parseInt(dipendente.getAnzianita()),dipendente.getTag(),dipendente.getUsername(),dipendente.getPassword());
 		
 		}
 		else if(dipendente.getTag().equals("manager"))
 		{
-		dipendenteCondivisoImp = new EManagerCondivisoImp(dipendente.getID(),dipendente.getNome(),dipendente.getCognome(),dipendente.getIndirizzo(),dipendente.getPaga_base(),dipendente.getFig_professionale(),Integer.parseInt(dipendente.getAnzianita()),dipendente.getTag(),null,null);
+		dipendenteCondivisoImp = new EManagerCondivisoImp(dipendente.getID(),dipendente.getNome(),dipendente.getCognome(),dipendente.getIndirizzo(),dipendente.getPaga_base(),dipendente.getFig_professionale(),Integer.parseInt(dipendente.getAnzianita()),dipendente.getTag(),dipendente.getUsername(),dipendente.getPassword());
 		
 		}
 		else if(dipendente.getTag().equals("consulente"))
 		{
-		dipendenteCondivisoImp = new EConsulenteCondivisoImp(dipendente.getID(),dipendente.getNome(),dipendente.getCognome(),dipendente.getIndirizzo(),dipendente.getPaga_base(),dipendente.getFig_professionale(),Integer.parseInt(dipendente.getAnzianita()),dipendente.getTag(),null,null);
+		dipendenteCondivisoImp = new EConsulenteCondivisoImp(dipendente.getID(),dipendente.getNome(),dipendente.getCognome(),dipendente.getIndirizzo(),dipendente.getPaga_base(),dipendente.getFig_professionale(),Integer.parseInt(dipendente.getAnzianita()),dipendente.getTag(),dipendente.getUsername(),dipendente.getPassword());
 		
 		}
 		return dipendenteCondivisoImp;
@@ -69,8 +69,8 @@ public class EDipendenteConcreteMapper extends EntityMappersFactory{
 		dipendente.setFig_professionale(dipendenteIce.getFigProfessionale());
 		dipendente.setPaga_base(dipendenteIce.getPagaBase());
 		dipendente.setIndirizzo(dipendenteIce.getIndirizzo());
-		//dipendente.setUsername(dipendenteIce.getPagaBase());
-		//dipendente.setPassword(dipendenteIce.getIndirizzo());
+		dipendente.setUsername(dipendenteIce.getUsername());
+		dipendente.setPassword(dipendenteIce.getPassword());
 
 		if(entity.getClass().toString().equals(EAdminCondivisoImp.class.toString()))
 		{

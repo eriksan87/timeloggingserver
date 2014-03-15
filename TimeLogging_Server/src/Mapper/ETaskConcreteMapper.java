@@ -1,26 +1,16 @@
 package Mapper;
-
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.orm.PersistentException;
-
-import Condivisione.EntityCondivise.EAttivitaCondivisa;
 import Condivisione.EntityCondivise.EDipendenteCondiviso;
 import Condivisione.EntityCondivise.ESottoprogettoCondiviso;
 import Condivisione.EntityCondivise.ETariffaCondivisa;
 import Condivisione.EntityCondivise.ETimeRecordCondiviso;
-
 import Condivisione.EntityCondivise.EntityCondivisa;
-
-import EntityCondivise.EConsulenteCondivisoImp;
 import EntityCondivise.ESottoprogettoCondivisoImp;
 import EntityCondivise.ETariffaCondivisaImp;
 import EntityCondivise.ETaskCondivisoImp;
-
 import foundation.EDipendente_ETask;
-
-import foundation.EDipendente;
 import foundation.ESottoprogetto;
 import foundation.ESottoprogettoCriteria;
 import foundation.ETariffa;
@@ -83,8 +73,7 @@ public class ETaskConcreteMapper extends EntityMappersFactory {
 			t.add(tar);	
 		}
 		ETaskCondivisoImp taskCondivisoImp = new ETaskCondivisoImp(task.getID(), task.getTitolo(),task.getDescrizione(),0,task.getInizio(),task.getScadenza(),dipendente,true,spprogIce,t, dipTaskImp.getAssegnato(), dipTaskImp.getRevocato(),null);
-		
-		return taskCondivisoImp;
+		 		return taskCondivisoImp;
 	
 	}
 	/**
@@ -109,6 +98,8 @@ public class ETaskConcreteMapper extends EntityMappersFactory {
 			task.setScadenza(taskIce.getScadenza());
 			task.setTitolo(taskIce.getTitolo());
 			task.seteSottoprogetto(sottoprogetto);
+			
+			
 			
 			
 		} catch (PersistentException e) {

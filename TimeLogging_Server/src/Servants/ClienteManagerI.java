@@ -6,6 +6,9 @@ import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
 import foundation.ECliente;
+import foundation.EClienteDAO;
+import foundation.EDipendente;
+import foundation.EDipendenteDAO;
 import foundation.EProgetto;
 
 import Condivisione.EntityCondivise.EAttivitaCondivisa;
@@ -20,16 +23,56 @@ import Services.Services;
 public class ClienteManagerI extends _ClienteManagerDisp{
 
 	@Override
-	public void createCliente(String nome, String cognome, String indirizzo,
-			Current __current) {
-		// TODO Auto-generated method stub
+	public void createCliente(EClienteCondiviso cliente, Current __current) {
+		// TODO Auto-generated method stub		
+		
+		try {
+			PersistentTransaction t = foundation.TimeLoggingPersistentManager.instance().getSession().beginTransaction();
+			try {
+				ECliente ecliente=(ECliente) EntityMappersFactory.getInstance().IceToHibernateFactory(cliente);
+				EClienteDAO.save(ecliente);
+				t.commit();
+			}
+			catch (Exception e) {
+				t.rollback();
+			}
+			finally 
+			{
+				foundation.TimeLoggingPersistentManager.instance().disposePersistentManager();
+			}
+		}
+	
+	catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
-	public void UpdateCliente(EClienteCondiviso e, Current __current) {
+	public void UpdateCliente(EClienteCondiviso cliente, Current __current) {
 		// TODO Auto-generated method stub
-		
+	
+		try {
+			PersistentTransaction t = foundation.TimeLoggingPersistentManager.instance().getSession().beginTransaction();
+			try {
+				foundation.ECliente lfoundationECliente = foundation.EClienteDAO.loadEClienteByQuery("ID="+cliente.id, null);
+				lfoundationECliente.setNome(cliente.nome);
+				lfoundationECliente.setCognome(cliente.cognome);
+				lfoundationECliente.setIndirizzo(cliente.indirizzo);
+				foundation.EClienteDAO.save(lfoundationECliente);
+				t.commit();
+			}
+			catch (Exception e) {
+				t.rollback();
+			}
+			finally 
+			{
+				foundation.TimeLoggingPersistentManager.instance().disposePersistentManager();
+			}
+		}
+	catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 
 	@Override
@@ -54,35 +97,36 @@ public class ClienteManagerI extends _ClienteManagerDisp{
 	
 
 	@Override
-	public void deleteCliente(EClienteCondiviso e, Current __current) {
+	public int deleteCliente(EClienteCondiviso cliente, Current __current) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<EProgettoCondiviso> getListProgetti(
-			EClienteCondiviso cliente, Current __current) {
-		// TODO Auto-generated method stub
-		
-		try{
-			foundation.EProgetto foundationProgetto[] = foundation.EProgettoDAO.listEProgettoByQuery(null, null);
-			//adesso passo da hibernate a ice
-			ArrayList<EProgettoCondiviso> list = new ArrayList<EProgettoCondiviso>();	
-			for (int i = 0; i < foundationProgetto.length; i++) { 
-				if(foundationProgetto[i].geteCliente().getID()==cliente.getId())
-					list.add((EProgettoCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationProgetto[i])); 
-			} 
-			
-			return list;
+		try {
+			PersistentTransaction t = foundation.TimeLoggingPersistentManager.instance().getSession().beginTransaction();
+			try {
+				//controllo prima se il cliente è associato ad un progetto
+				if( foundation.EProgettoDAO.listEProgettoByQuery("EClienteID="+cliente.id,null).length>0)
+				{
+					return 1;
+				}
+				else{
+				 foundation.ECliente lfoundationECliente = foundation.EClienteDAO.loadEClienteByQuery("ID="+cliente.id, null);
+				 foundation.EClienteDAO.delete(lfoundationECliente);
+				t.commit();
+				}
 			}
-		
 			catch (Exception e) {
-			e.printStackTrace();
+				t.rollback();
 			}
+			finally 
+			{
+				foundation.TimeLoggingPersistentManager.instance().disposePersistentManager();
+			}
+		}
+	catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return null;
+		return 0;
 	}
 
 	
-
 }

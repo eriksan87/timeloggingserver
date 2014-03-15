@@ -139,16 +139,7 @@ public class ETaskCondivisoImp extends ETaskCondiviso{
 	@Override
 	public double elaboraCosti(Current __current) {
 		// TODO Auto-generated method stub
-		
-		for (int i=0;i<this.listTRL.size();i++)
-		{
-			this.costo=this.costo+((ETimeRecordLavorativoCondiviso)this.listTRL.get(i)).calcolaCosto(this.tariffe); 
-			System.out.println("costo task:"+this.costo);
-			System.out.println("size di tariffe into task:"+this.tariffe.size());
-		}
-		
-		
-		return this.costo;
+		return 0;
 	}
 	@Override
 	public void setlistTRL(ArrayList<ETimeRecordCondiviso> listTRL,

@@ -128,17 +128,7 @@ public class ESottoprogettoCondivisoImp extends ESottoprogettoCondiviso {
 	@Override
 	public double elaboraCosti(Current __current) {
 		// TODO Auto-generated method stub
-		
-		
-		for(int i=0; i<this.listTasks.size();i++)
-		{
-			
-			this.costo=this.costo+listTasks.get(i).elaboraCosti();
-			System.out.println("costo sottoprogetto:"+this.costo);
-		}
-		
-		
-		return this.costo;
+		return 0;
 	}
 	@Override
 	public void setlistTask(ArrayList<ETaskCondiviso> listTasks,

@@ -1,22 +1,12 @@
 package Servants;
 
-import java.util.ArrayList;
-
 import org.orm.PersistentException;
-import org.orm.PersistentTransaction;
 
-import foundation.ETimeRecordLavorativo;
-import foundation.ETimeRecordLavorativoDAO;
-import foundation.ETimeRecordNL;
-import foundation.ETimeRecordNLDAO;
-
-import Condivisione.EntityCondivise.EAttivitaCondivisa;
+import Condivisione.EntityCondivise.EAdminCondiviso;
+import Condivisione.EntityCondivise.EConsulenteCondiviso;
 import Condivisione.EntityCondivise.EDipendenteCondiviso;
-import Condivisione.EntityCondivise.EProgettoCondiviso;
-import Condivisione.EntityCondivise.ESottoprogettoCondiviso;
+import Condivisione.EntityCondivise.EManagerCondiviso;
 import Condivisione.InterfacceCondivise._LoginManagerDisp;
-import EntityCondivise.ETimeRecordLavorativoCondivisoImp;
-import EntityCondivise.ETimeRecordNonLavorativoCondivisoImp;
 import EntityNonCondivise.Sessione;
 import Ice.Current;
 import Mapper.EntityMappersFactory;
@@ -31,7 +21,7 @@ public class LoginManagerI extends _LoginManagerDisp {
 		
 		if(Sessione.getIstance().checkGiaLoggato(username))
 		{
-			System.out.println("già loggato");
+			
 			return -2;
 		}
 		
@@ -51,11 +41,10 @@ public class LoginManagerI extends _LoginManagerDisp {
 			if(foundationEDipendente.length==0)
 				return -1;
 			else
-			{
+			{  
 				dip=(EDipendenteCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationEDipendente[0]);
-			
 				Sessione.getIstance().aggiungiLoggato(dip);
-				return dip.getId();
+				return (dip.getId());
 				
 			}
 			

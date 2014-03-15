@@ -54,8 +54,6 @@ public class TimeRecordManagerI extends  _TimeRecordManagerDisp {
 		
 		try {
 			PersistentTransaction t = foundation.TimeLoggingPersistentManager.instance().getSession().beginTransaction();
-			System.out.println(tr.getId());	
-			
 			ETimeRecordCondiviso timeR=null;
 			ArrayList<ETimeRecordLavorativo> foundationETRL = null;
 			ETimeRecordNL[] foundationETRNL = null;
@@ -145,28 +143,14 @@ public class TimeRecordManagerI extends  _TimeRecordManagerDisp {
 						}
 					else { //MODIFICA TIME RECORD
 						try {
-							
-							//System.out.println("Fine"+tr.getFine());
-							//System.out.println(tr.getFine());
 							ETimeRecordLavorativo	etrl = (ETimeRecordLavorativo) foundation.TimeLoggingPersistentManager.instance().getSession().get(ETimeRecordLavorativo.class, tr.getId());
-							//System.out.println("prova1");
 							ETaskCondiviso taskcondiviso=((ETimeRecordLavorativoCondiviso)tr).getETaskCondiviso();
-									//( ((ETimeRecordLavorativoCondiviso)tr).getETaskCondiviso());
-							
-							//System.out.println("il dipendente è: "+ ((ETimeRecordLavorativoCondiviso)tr).getETaskCondiviso().getDipendente().getNome());
-							
-							//System.out.println("il task condiviso è: "+ taskcondiviso.getDescrizione());
-							//System.out.println("il padre del task condiviso è: "+ taskcondiviso.getPadre().getId());
-							//System.out.println("");
-							
-							//ETask etask= (ETask) EntityMappersFactory.getInstance().IceToHibernateFactory(taskcondiviso);
 							
 							ETask etask= null;
 							ETaskCriteria eCriteriat= new ETaskCriteria();
 							eCriteriat.ID.eq(((ETimeRecordLavorativoCondiviso)tr).getETaskCondiviso().getId());
 							etask=eCriteriat.uniqueETask();
 							
-							//System.out.println("prova2");
 							etrl.setFine(tr.getFine());
 							etrl.setCommento(tr.getCommento()); // sull'aggiornamento inserisco anche i commenti
 							etrl.setInizio(tr.getInizio());
@@ -206,8 +190,7 @@ public class TimeRecordManagerI extends  _TimeRecordManagerDisp {
 							etrnl.setCommento(tr.getCommento()); // sull'aggiornamento inserisco anche i commenti
 							etrnl.setInizio(tr.getInizio());
 							etrnl.setCategoria(( (ETimeRecordNonLavorativoCondiviso)tr).getCategoria());
-							System.out.println("categoria"+( (ETimeRecordNonLavorativoCondiviso)tr).getCategoria());
-						
+							
 						}
 						catch (HibernateException e) { // questo primo catch può essere anche evitato (da vedere meglio)
 							foundation.TimeLoggingPersistentManager.instance().getSession().getTransaction().rollback();
@@ -270,8 +253,6 @@ public class TimeRecordManagerI extends  _TimeRecordManagerDisp {
 		else
 			ult = Integer.parseInt(ultimi);
 		
-		System.out.println(ult);
-		
 		ArrayList<ETimeRecordCondiviso> list=new ArrayList<ETimeRecordCondiviso>();
 		int i=0;
 		int j=0;
@@ -292,8 +273,6 @@ public class TimeRecordManagerI extends  _TimeRecordManagerDisp {
 			list.add(t);
 		}
 		
-		System.out.println(list.size());
-		
 		if(list.size()!=ult){
 			if(i==array.size()){
 						
@@ -312,7 +291,7 @@ public class TimeRecordManagerI extends  _TimeRecordManagerDisp {
 					
 			}
 			else{
-				System.out.println("ciao2");
+				
 				if (array.size()<i+ult-list.size()){
 					array=array.subList(i,  array.size()); //i+ult-list.size()
 				}

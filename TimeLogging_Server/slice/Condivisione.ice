@@ -5,7 +5,6 @@ module EntityCondivise{
 	
 	class EntityCondivisa{};
 	
-	
 	class EClienteCondiviso extends EntityCondivisa
 	{
 		int id;
@@ -224,7 +223,8 @@ class ETimeRecordNonLavorativoCondiviso extends ETimeRecordCondiviso
 		EClienteCondiviso cliente;
 		listaSottoProgetti listSp;
 		proroghe proroga;
-		
+		double guadagno;
+	
 		proroghe getProroghe();
 		void setProroghe(proroghe p);
 		void setEClienteCondiviso(EClienteCondiviso cliente);
@@ -237,6 +237,8 @@ class ETimeRecordNonLavorativoCondiviso extends ETimeRecordCondiviso
 	  	listaSottoProgetti getlistSp();
 	  	ESottoprogettoCondiviso getSp(string titolo);
 		
+		double elaboraGuadagno();
+		double elaboraFattura();
 	};
 	
 	["java:type:java.util.ArrayList<Condivisione.EntityCondivise.ETimeRecordCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.ETimeRecordCondiviso>"]
@@ -255,17 +257,13 @@ class ETimeRecordNonLavorativoCondiviso extends ETimeRecordCondiviso
     ["java:type:java.util.ArrayList<Condivisione.EntityCondivise.EConsulenteCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.EConsulenteCondiviso>"]
     sequence<::Condivisione::EntityCondivise::EConsulenteCondiviso> listaConsulenti;
     
-    
-    
-    
-    
+     ["java:type:java.util.ArrayList<Condivisione.EntityCondivise.EDipendenteCondiviso>:java.util.ArrayList<Condivisione.EntityCondivise.EDipendenteCondiviso>"]
+     sequence<::Condivisione::EntityCondivise::EDipendenteCondiviso> listaDipendenti;
     
 };
 	
-	
-	
-	
 module InterfacceCondivise{
+
 interface TimeRecordManager{
 	
 		int save(::Condivisione::EntityCondivise::ETimeRecordCondiviso e);
@@ -275,17 +273,27 @@ interface TimeRecordManager{
 	
 interface AttivitaManager{
 		void saveAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa e);
+		
 		::Condivisione::EntityCondivise::EProgettoCondiviso getProgetto(::Condivisione::EntityCondivise::EProgettoCondiviso progetto);
 		::Condivisione::EntityCondivise::ESottoprogettoCondiviso getSottoprogetto(::Condivisione::EntityCondivise::ESottoprogettoCondiviso sprogetto);
 		::Condivisione::EntityCondivise::ETaskCondiviso getTask(::Condivisione::EntityCondivise::ETaskCondiviso task);
+	 
+	 // funzioni che servono per il riempimento delle combo
 	    ::Condivisione::EntityCondivise::listaProgetti getListProgetti(::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente,bool abilitati);
 		::Condivisione::EntityCondivise::listaSottoProgetti getListSottoProgetti(int idprogetto,::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente,bool abilitati);
 	    ::Condivisione::EntityCondivise::listaTask getListTask(int idsottoprogetto,bool abilitati,::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
-	   	
+	 
+	 // funzioni che filtrano le attività per i dipendenti
+	 ::Condivisione::EntityCondivise::listaTask getListTaskConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente);
+	 ::Condivisione::EntityCondivise::listaSottoProgetti getListSottoprogettiManager(::Condivisione::EntityCondivise::EManagerCondiviso manager);
+	 
+	 //funzioni admin
 	   	::Condivisione::EntityCondivise::listaTask getAllTask();
 	   	::Condivisione::EntityCondivise::listaSottoProgetti getAllSp(::Condivisione::EntityCondivise::EManagerCondiviso manager);
-	   	
 	   	void eliminaAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa attivita);
+	 //funzioni clienti
+	 ::Condivisione::EntityCondivise::listaProgetti getListProgettiClienti(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
+	 
 	   
 	};
 	
@@ -299,36 +307,44 @@ interface LoginManager{
 interface ClienteManager
 	{
 		//CRUD Cliente Create-Read-Update-Delete
-   		void createCliente(string nome,string cognome,string indirizzo);
-   		void UpdateCliente(::Condivisione::EntityCondivise::EClienteCondiviso e);
+   		void createCliente(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
+   		void UpdateCliente(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
    		::Condivisione::EntityCondivise::listaClienti getListClienti();
-   		void deleteCliente(::Condivisione::EntityCondivise::EClienteCondiviso e);
-   		::Condivisione::EntityCondivise::listaProgetti getListProgetti(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
-   		
+   		int deleteCliente(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
 	};
-
-interface ManagerManager
-	{
-		//CRUD Manager Create-Read-Update-Delete
-  
-   		void createManager(string nome,string cognome,string indirizzo,double pagaBase, string figProfessionale, int anzianita, string tag, string username, string password);
-   		void UpdateManager(::Condivisione::EntityCondivise::EManagerCondiviso e);
-   		::Condivisione::EntityCondivise::listaManager getListManager();
-   		void deleteManager(::Condivisione::EntityCondivise::EManagerCondiviso e);
-   		::Condivisione::EntityCondivise::listaSottoProgetti getListSottoprogetti(::Condivisione::EntityCondivise::EManagerCondiviso manager);
-   		
-	};
-
-interface ConsulenteManager
-	{
-		//CRUD Conselente Create-Read-Update-Delete
 		
-   		void createConsulente(string nome,string cognome,string indirizzo);
-   		void UpdateConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso e);
+
+interface DipendenteManager
+	{
+		//CRUD Dipendente Create-Read-Update-Delete
+   		void createDipendente(::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
+   		int UpdateDipendente(::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
+   		int deleteDipendente(::Condivisione::EntityCondivise::EDipendenteCondiviso dipentente);
    		::Condivisione::EntityCondivise::listaConsulenti getListConsulenti(::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
-   		void deleteConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso e);
-   		::Condivisione::EntityCondivise::listaTask getListTask(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente);
-   		
-	};
+   		::Condivisione::EntityCondivise::listaManager getListManager();
+   		::Condivisione::EntityCondivise::listaDipendenti getListDipendentiAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa progetto);
+  		::Condivisione::EntityCondivise::listaDipendenti getListAllDipendenti();
+  };
+
+interface FatturaManager
+
+{
+	double getPercentualeGuadagno();
+	double getPercentualeScontoCliente();
+	double getScontoSoglia();
+	double getSoglia();
+	
+	void setPercentualeGuadagno(double percentuale);
+	void setPercentualeScontoCliente(double percentuale);
+	void setScontoSoglia(double scontosoglia);
+	void setSoglia(double soglia);
+	
+	bool nuovoCliente(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
+	
+	
 };
+  
+};
+
+
 };
