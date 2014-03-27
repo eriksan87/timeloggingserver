@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="foundation.EProgetto" table="EProgetto" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="eDipendente" cascade="lock" column="EDipendenteID" class="foundation.EDipendente" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<many-to-one name="eCliente" cascade="lock" column="EClienteID" class="foundation.ECliente" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<property name="titolo" column="Titolo" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="descrizione" column="Descrizione" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="inizio" column="Inizio" type="timestamp" not-null="false" lazy="false"/>
+		<property name="scadenza" column="Scadenza" type="timestamp" not-null="false" lazy="false"/>
+		<property name="budget" column="Budget" type="double" length="10" not-null="true" lazy="false"/>
+		<set name="ORM_eSottoprogetto" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="EProgettoID" not-null="true"/>
+			<one-to-many class="foundation.ESottoprogetto"/>
+		</set>
+		<set name="ORM_eSpesaExtra" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="EProgettoID" not-null="true"/>
+			<one-to-many class="foundation.ESpesaExtra"/>
+		</set>
+		<set name="ORM_eProroga" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="EProgettoID" not-null="true"/>
+			<one-to-many class="foundation.EProroga"/>
+		</set>
+	</class>
+</hibernate-mapping>
