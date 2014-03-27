@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<sconti>
-
-    <PercentualeGuadagno>10</PercentualeGuadagno>
-    <PercentualeScontoCliente>20</PercentualeScontoCliente>
-    <ScontoSoglia>30</ScontoSoglia>
-    <Soglia>40</Soglia>
-
-</sconti>
