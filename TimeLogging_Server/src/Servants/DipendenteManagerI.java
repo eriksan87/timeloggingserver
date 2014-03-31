@@ -123,11 +123,12 @@ public class DipendenteManagerI extends _DipendenteManagerDisp {
 			PersistentTransaction t = foundation.TimeLoggingPersistentManager.instance().getSession().beginTransaction();
 			try {
 				//controllo se un consulente non è associato ad un task oppure se un manager non è associato ad un sottoprogetto
-				if((foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery("EDipendenteID="+dipendente.id, null).length>0)||(foundation.ESottoprogettoDAO.listESottoprogettoByQuery("EDipendenteID="+dipendente.id, null).length>0))
+				if((foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery("EDipendenteID="+dipendente.id, null).length>0)||(foundation.ESottoprogettoDAO.listESottoprogettoByQuery("EDipendenteID="+dipendente.id, null).length>0)||(foundation.ETimeRecordNLDAO.listETimeRecordNLByQuery("EDipendenteID="+dipendente.id, null).length>0))
 					return 1;
-				
+			
 				foundation.EDipendente lfoundationEDipendente = foundation.EDipendenteDAO.loadEDipendenteByQuery("ID="+dipendente.id, null);
 				foundation.EDipendenteDAO.delete(lfoundationEDipendente);
+				
 				t.commit();
 			}
 			

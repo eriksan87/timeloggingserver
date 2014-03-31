@@ -206,7 +206,7 @@ public class AttivitaManagerI extends _AttivitaManagerDisp {
 					if( lastTar.getCosto()== (((ETaskCondivisoImp)attivita).tariffe.get(0).getImporto()) )
 					{
 						foundation.ETariffa lfoundationETar=foundation.ETariffaDAO.loadETariffaByQuery("ID="+lastTar.getID(),null);
-						lfoundationETar.setFine(currentTimestamp);
+						lfoundationETar.setFine(attivita.getScadenza());
 						foundation.ETariffaDAO.save(lfoundationETar);
 					}
 					
@@ -556,7 +556,25 @@ public ArrayList<ETaskCondiviso> getListTaskConsulenteByManager(
 	return null;
 }
 
-
+@Override
+public ArrayList<ETaskCondiviso> getListTaskByManager(
+		EManagerCondiviso manager, Current __current) {
+	// TODO Auto-generated method stub
+	try{
+		foundation.ESottoprogetto foundationSottoprogetto[]=foundation.ESottoprogettoDAO.listESottoprogettoByQuery("EDipendenteID="+manager.id, null);
+		ArrayList<ETaskCondiviso> listTaskBySP = new ArrayList<ETaskCondiviso>(); 
+		
+		for(int z=0; z<foundationSottoprogetto.length; z++) 
+			{
+			listTaskBySP.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundation.ETaskDAO.loadETaskByQuery("ESottoprogettoID="+foundationSottoprogetto[z].getID(), null)));
+			}
+		return listTaskBySP;
+		}	
+		catch (Exception e) {
+		e.printStackTrace();
+		}
+return null;
+}
 
 @Override
 public ArrayList<ESottoprogettoCondiviso> getListSottoprogettiManager(
@@ -603,11 +621,4 @@ public ArrayList<EProgettoCondiviso> getListProgettiClienti(
 	return null;
 }
 
-
-
-
-
-
-	
-	
 }

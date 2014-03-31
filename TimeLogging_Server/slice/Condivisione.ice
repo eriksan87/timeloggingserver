@@ -283,12 +283,13 @@ interface AttivitaManager{
 		::Condivisione::EntityCondivise::listaSottoProgetti getListSottoProgetti(int idprogetto,::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente,bool abilitati);
 	    ::Condivisione::EntityCondivise::listaTask getListTask(int idsottoprogetto,bool abilitati,::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
 	 
-	 // funzioni che filtrano le attività per i dipendenti
+	 // funzioni che filtrano le attività per i dipendenti: queste funzioni vengono usate nell'area di  ricerca Admin e Manager
 	 ::Condivisione::EntityCondivise::listaTask getListTaskConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente);
-	 ::Condivisione::EntityCondivise::listaTask getListTaskConsulenteByManager(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente, ::Condivisione::EntityCondivise::EManagerCondiviso manager);
 	 ::Condivisione::EntityCondivise::listaSottoProgetti getListSottoprogettiManager(::Condivisione::EntityCondivise::EManagerCondiviso manager);
+	 ::Condivisione::EntityCondivise::listaTask getListTaskConsulenteByManager(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente, ::Condivisione::EntityCondivise::EManagerCondiviso manager);
+	 ::Condivisione::EntityCondivise::listaTask getListTaskByManager(::Condivisione::EntityCondivise::EManagerCondiviso manager);
 	 
-	 //funzioni admin
+	 //funzioni admin: queste funzione vengono usate esclusivamente nell'area di ricerca dell'Admin
 	   	::Condivisione::EntityCondivise::listaTask getAllTask();
 	   	::Condivisione::EntityCondivise::listaSottoProgetti getAllSp(::Condivisione::EntityCondivise::EManagerCondiviso manager);
 	   	void eliminaAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa attivita);
