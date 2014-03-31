@@ -9,7 +9,7 @@ import Condivisione.EntityCondivise.ETaskCondiviso;
 import Condivisione.EntityCondivise.ETimeRecordLavorativoCondiviso;
 import Condivisione.EntityCondivise.ETimeRecordNonLavorativoCondiviso;
 import EntityCondivise.EntityFactory;
-import EntityNonCondivise.Sessione;
+import EntityNonCondivise.SessionHandler;
 import Servants.*;
 
 
@@ -35,7 +35,7 @@ public class ServerMain  {
 	
 	// Create un oggetto adapter (stored in the _adapter static members)
 		
-	Ice.ObjectAdapter adapter= ic.createObjectAdapterWithEndpoints("TLogging", "tcp -h localhost -p 10104");
+	Ice.ObjectAdapter adapter= ic.createObjectAdapterWithEndpoints("TLogging", "tcp -h 192.168.1.25 -p 10104");
 		
 	//aggiungo all'adapter un oggetto TimeRecordManagerI() 
 	
@@ -52,6 +52,6 @@ public class ServerMain  {
 	// In Attesa...
 	ic.waitForShutdown();
 	
-	Sessione.getIstance(); //inizializzo una sessione vuota
+	SessionHandler.getIstance(); //inizializzo una sessione vuota
 	}
 }

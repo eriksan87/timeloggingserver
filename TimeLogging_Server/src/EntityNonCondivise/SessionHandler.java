@@ -7,12 +7,12 @@ import Condivisione.EntityCondivise.EConsulenteCondiviso;
 import Condivisione.EntityCondivise.EDipendenteCondiviso;
 import EntityCondivise.EConsulenteCondivisoImp;
 
-public class Sessione {
+public class SessionHandler {
 
-	private static Sessione istanza=null; //la sessione è singleton
+	private static SessionHandler istanza=null; //la sessione è singleton
 	private ArrayList<EDipendenteCondiviso> elencoLoggati;
 	
-	protected Sessione()
+	protected SessionHandler()
 	{   
 		elencoLoggati = new ArrayList<EDipendenteCondiviso>();
 	}
@@ -25,11 +25,11 @@ public class Sessione {
 	
 	
 	
-	public static Sessione getIstance()
+	public static SessionHandler getIstance()
 	{
 		if(istanza==null)
 		{
-			istanza= new Sessione();
+			istanza= new SessionHandler();
 		}
 		 return istanza;
 	}

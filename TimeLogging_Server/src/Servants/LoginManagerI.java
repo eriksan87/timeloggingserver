@@ -7,7 +7,7 @@ import Condivisione.EntityCondivise.EConsulenteCondiviso;
 import Condivisione.EntityCondivise.EDipendenteCondiviso;
 import Condivisione.EntityCondivise.EManagerCondiviso;
 import Condivisione.InterfacceCondivise._LoginManagerDisp;
-import EntityNonCondivise.Sessione;
+import EntityNonCondivise.SessionHandler;
 import Ice.Current;
 import Mapper.EntityMappersFactory;
 
@@ -19,7 +19,7 @@ public class LoginManagerI extends _LoginManagerDisp {
 		
 		//controllo e restituisco l'id dell'utente
 		
-		if(Sessione.getIstance().checkGiaLoggato(username))
+		if(SessionHandler.getIstance().checkGiaLoggato(username))
 		{
 			
 			return -2;
@@ -43,7 +43,7 @@ public class LoginManagerI extends _LoginManagerDisp {
 			else
 			{  
 				dip=(EDipendenteCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationEDipendente[0]);
-				Sessione.getIstance().aggiungiLoggato(dip);
+				SessionHandler.getIstance().aggiungiLoggato(dip);
 				return (dip.getId());
 				
 			}
@@ -59,13 +59,13 @@ public class LoginManagerI extends _LoginManagerDisp {
 		// TODO Auto-generated method stub
 		
 		
-		return Sessione.getIstance().getIdentitaDipendente(id);
+		return SessionHandler.getIstance().getIdentitaDipendente(id);
 	}
 
 	@Override
 	public void sessionDestroy(int id, Current __current) {
 		// TODO Auto-generated method stub
-		Sessione.getIstance().sessionDestroy(id); 
+		SessionHandler.getIstance().sessionDestroy(id); 
 	}
 
 }

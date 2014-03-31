@@ -285,6 +285,7 @@ interface AttivitaManager{
 	 
 	 // funzioni che filtrano le attività per i dipendenti
 	 ::Condivisione::EntityCondivise::listaTask getListTaskConsulente(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente);
+	 ::Condivisione::EntityCondivise::listaTask getListTaskConsulenteByManager(::Condivisione::EntityCondivise::EConsulenteCondiviso consulente, ::Condivisione::EntityCondivise::EManagerCondiviso manager);
 	 ::Condivisione::EntityCondivise::listaSottoProgetti getListSottoprogettiManager(::Condivisione::EntityCondivise::EManagerCondiviso manager);
 	 
 	 //funzioni admin

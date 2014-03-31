@@ -488,8 +488,6 @@ public void eliminaAttivita(EAttivitaCondivisa attivita, Current __current) {
 	
 }
 
-
-
 @Override
 public ArrayList<ETaskCondiviso> getListTaskConsulente(
 		EConsulenteCondiviso consulente, Current __current) {
@@ -508,7 +506,6 @@ public ArrayList<ETaskCondiviso> getListTaskConsulente(
 				for(int j = 0; j < foundationTask.length; j++)
 				{
 					if(foundationEDipTAsk[i].getEtask().getID()==foundationTask[j].getID())
-						
 						list.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationTask[j])); 
 				}
 			}
@@ -518,7 +515,44 @@ public ArrayList<ETaskCondiviso> getListTaskConsulente(
 		catch (Exception e) {
 		e.printStackTrace();
 		}
+	
+	return null;
+}
 
+@Override
+public ArrayList<ETaskCondiviso> getListTaskConsulenteByManager(
+		EConsulenteCondiviso consulente, EManagerCondiviso manager,
+		Current __current) {
+	// TODO Auto-generated method stub
+	try{
+		foundation.ESottoprogetto foundationSottoprogetto[]=foundation.ESottoprogettoDAO.listESottoprogettoByQuery("EDipendenteID="+manager.id, null);
+		ArrayList<ETaskCondiviso> listTaskBySP = new ArrayList<ETaskCondiviso>(); 
+		
+		for(int z=0; z<foundationSottoprogetto.length; z++) 
+			{
+			listTaskBySP.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundation.ETaskDAO.loadETaskByQuery("ESottoprogettoID="+foundationSottoprogetto[z].getID(), null)));
+			}
+		foundation.EDipendente_ETask foundationEDipTAsk[]=foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery(null,null);
+		//adesso passo da hibernate a ice
+		ArrayList<ETaskCondiviso> list = new ArrayList<ETaskCondiviso>();
+		
+		for (int i = 0; i < foundationEDipTAsk.length; i++) 
+		{ 
+			if(foundationEDipTAsk[i].getEdipendente().getID()==consulente.getId())
+			{ 
+				for(int j = 0; j < listTaskBySP.size(); j++)
+				{
+					if(foundationEDipTAsk[i].getEtask().getID()==listTaskBySP.get(j).id)
+						list.add(listTaskBySP.get(j)); 
+				}
+			}
+		}
+		return list;
+		}	
+		catch (Exception e) {
+		e.printStackTrace();
+		}
+	
 	return null;
 }
 
@@ -559,7 +593,6 @@ public ArrayList<EProgettoCondiviso> getListProgettiClienti(
 			if(foundationProgetto[i].geteCliente().getID()==cliente.getId())
 				list.add((EProgettoCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationProgetto[i])); 
 		} 
-		
 		return list;
 		}
 	
@@ -569,6 +602,10 @@ public ArrayList<EProgettoCondiviso> getListProgettiClienti(
 	
 	return null;
 }
+
+
+
+
 
 
 	

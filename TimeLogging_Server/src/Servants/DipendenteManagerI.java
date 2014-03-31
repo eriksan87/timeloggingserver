@@ -86,6 +86,8 @@ public class DipendenteManagerI extends _DipendenteManagerDisp {
 					lfoundationEDipendente.setTag("manager");
 				}
 				
+				
+				
 				lfoundationEDipendente.setAnzianita(Integer.toString(dipendente.anzianita));
 				lfoundationEDipendente.setCognome(dipendente.cognome);
 				lfoundationEDipendente.setFig_professionale(dipendente.figProfessionale);
@@ -94,9 +96,9 @@ public class DipendenteManagerI extends _DipendenteManagerDisp {
 				lfoundationEDipendente.setPaga_base(dipendente.pagaBase);
 				lfoundationEDipendente.setPassword(dipendente.password);
 				lfoundationEDipendente.setUsername(dipendente.username);
-		
 				foundation.EDipendenteDAO.save(lfoundationEDipendente);
 				t.commit();
+				
 			}
 			catch (Exception e) {
 				t.rollback();
