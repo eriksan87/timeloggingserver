@@ -291,8 +291,7 @@ interface AttivitaManager{
 	 
 	 //funzioni admin: queste funzione vengono usate esclusivamente nell'area di ricerca dell'Admin
 	   	::Condivisione::EntityCondivise::listaTask getAllTask();
-	   	::Condivisione::EntityCondivise::listaSottoProgetti getAllSp(::Condivisione::EntityCondivise::EManagerCondiviso manager);
-	   	void eliminaAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa attivita);
+	  	void eliminaAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa attivita);
 	 //funzioni clienti
 	 ::Condivisione::EntityCondivise::listaProgetti getListProgettiClienti(::Condivisione::EntityCondivise::EClienteCondiviso cliente);
 	 

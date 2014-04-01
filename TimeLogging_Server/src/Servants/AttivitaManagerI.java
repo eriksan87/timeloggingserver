@@ -433,34 +433,6 @@ public ArrayList<ETaskCondiviso> getAllTask(Current __current) {
 }
 
 
-
-@Override
-public ArrayList<ESottoprogettoCondiviso>getAllSp(EManagerCondiviso manager,
-		Current __current) {
-	// TODO Auto-generated method stub
-	
-	try{
-		foundation.ESottoprogetto foundationSottoprogetto[]=foundation.ESottoprogettoDAO.listESottoprogettoByQuery(null,null);
-		
-		ArrayList<ESottoprogettoCondiviso> list = new ArrayList<ESottoprogettoCondiviso>();	
-		
-		for (int i = 0; i < foundationSottoprogetto.length; i++) 
-		{ 
-			if(foundationSottoprogetto[i].geteDipendente().getID()==manager.getId())
-			 	list.add((ESottoprogettoCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationSottoprogetto[i])); 
-		}
-		
-		return list;
-		}
-	
-		catch (Exception e) {
-		e.printStackTrace();
-		}
-		return null;
-}
-
-
-
 @Override
 public void eliminaAttivita(EAttivitaCondivisa attivita, Current __current) {
 	// TODO Auto-generated method stub
@@ -581,17 +553,14 @@ public ArrayList<ESottoprogettoCondiviso> getListSottoprogettiManager(
 		EManagerCondiviso manager, Current __current) {
 	// TODO Auto-generated method stub
 	try{
-		foundation.ESottoprogetto foundationSottoProgetto[] = foundation.ESottoprogettoDAO.listESottoprogettoByQuery(null, null);
+		foundation.ESottoprogetto foundationSottoProgetto[] = foundation.ESottoprogettoDAO.listESottoprogettoByQuery("EDipendenteID="+manager.id, null);
 		//adesso passo da hibernate a ice
 		ArrayList<ESottoprogettoCondiviso> list = new ArrayList<ESottoprogettoCondiviso>();	
 		for (int i = 0; i < foundationSottoProgetto.length; i++) { 
-			if(foundationSottoProgetto[i].geteDipendente().getID()==manager.getId())
-				list.add((ESottoprogettoCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationSottoProgetto[i])); 
+		 list.add((ESottoprogettoCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationSottoProgetto[i])); 
 		} 
-		
 		return list;
 		}
-	
 		catch (Exception e) {
 		e.printStackTrace();
 		}
