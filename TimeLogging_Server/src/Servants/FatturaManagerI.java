@@ -1,18 +1,5 @@
 package Servants;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import java.io.File;
-import java.io.IOException;
-
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
-import org.xml.sax.*;
 import Condivisione.EntityCondivise.EClienteCondiviso;
 import Condivisione.InterfacceCondivise._FatturaManagerDisp;
 import EntityNonCondivise.XMLParserFactory;

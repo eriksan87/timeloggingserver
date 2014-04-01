@@ -19,13 +19,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XMLParser {
-	
-	
-private String fattura_cfg_file="fattura_cfg.xml";
-	
+		
 	private String fileName=null;
 	private Document document;
 	private static XMLParser istanza=null;
+	
 	protected XMLParser()
 	{
 	}	
@@ -39,7 +37,7 @@ private String fattura_cfg_file="fattura_cfg.xml";
 	}
 
 	//metodi get e set
-	public double getNodeValue(String nameNode)
+	public String getNodeValue(String nameNode)
 	{
 		// TODO Auto-generated method stub
 				String role1=null;
@@ -57,7 +55,7 @@ private String fattura_cfg_file="fattura_cfg.xml";
 		            if (nl.getLength() > 0 && nl.item(0).hasChildNodes()) {
 		    	        role1 = nl.item(0).getFirstChild().getNodeValue();
 		    	    }
-		            return Double.parseDouble(role1);
+		            return role1;
 		           
 		        } catch (ParserConfigurationException pce) {
 		            System.out.println(pce.getMessage());
@@ -67,7 +65,7 @@ private String fattura_cfg_file="fattura_cfg.xml";
 		            System.err.println(ioe.getMessage());
 		        }
 			
-				return 0;
+				return "";
 	}
 	
 	public void setFileName(String path)

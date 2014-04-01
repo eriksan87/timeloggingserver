@@ -6,8 +6,8 @@ import Condivisione.EntityCondivise.EDipendenteCondiviso;
 
 public class XMLParserFactory {
 
-	private String fattura_cfg_file="fattura_cfg.xml";
-	
+	private String fattura_cfg_file="src/xml/fattura_cfg.xml";
+	private String network_cfg_file="src/xml/network_cfg.xml";
 	private static XMLParserFactory istanza=null;
 	
 	protected XMLParserFactory()
@@ -28,24 +28,24 @@ public class XMLParserFactory {
 	public double getPercentualeGuadagno()
 	{
 		XMLParser.getIstance().setFileName(fattura_cfg_file);
-		return XMLParser.getIstance().getNodeValue("PercentualeGuadagno");
+		return Double.parseDouble((XMLParser.getIstance().getNodeValue("PercentualeGuadagno")));
 	}
 	
 	public double getPercentualeScontoCliente()
 	{
 		XMLParser.getIstance().setFileName(fattura_cfg_file);
-		return XMLParser.getIstance().getNodeValue("PercentualeScontoCliente");
+		return Double.parseDouble(XMLParser.getIstance().getNodeValue("PercentualeScontoCliente"));
 	}
 	
 	public double getScontoSoglia()
 	{XMLParser.getIstance().setFileName(fattura_cfg_file);
-	 return XMLParser.getIstance().getNodeValue("ScontoSoglia");
+	 return Double.parseDouble(XMLParser.getIstance().getNodeValue("ScontoSoglia"));
 	}
 	
 	public double getSoglia()
 	{
 		XMLParser.getIstance().setFileName(fattura_cfg_file);
-		return XMLParser.getIstance().getNodeValue("Soglia");
+		return Double.parseDouble(XMLParser.getIstance().getNodeValue("Soglia"));
 	}
 	
 	public void setPercentualeGuadagno(double pg){
@@ -71,5 +71,24 @@ public class XMLParserFactory {
 		XMLParser.getIstance().setFileName(fattura_cfg_file);
 		XMLParser.getIstance().setValueNode("Soglia",Double.toString(s));
 	}
+	
+	public String getHost()
+	{
+		XMLParser.getIstance().setFileName(network_cfg_file);
+		return XMLParser.getIstance().getNodeValue("host");
+	}
+	
+	public String getPort()
+	{
+		XMLParser.getIstance().setFileName(network_cfg_file);
+		return XMLParser.getIstance().getNodeValue("port");
+	}
+	
+	public String getProtocol()
+	{
+		XMLParser.getIstance().setFileName(network_cfg_file);
+		return XMLParser.getIstance().getNodeValue("protocol");
+	}
+	
 	
 }
