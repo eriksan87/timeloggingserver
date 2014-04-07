@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <impostazioni>
     <protocol>tcp</protocol>
-    <host>192.168.1.25</host>
-    <port>10104</port> 
+    <host>localhost</host>
+    <port>10105</port> 
 </impostazioni>

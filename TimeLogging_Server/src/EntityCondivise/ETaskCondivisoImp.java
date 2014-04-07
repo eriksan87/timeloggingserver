@@ -157,6 +157,12 @@ public class ETaskCondivisoImp extends ETaskCondiviso{
 	{
 		return this.titolo;
 	}
+
+	@Override
+	public ArrayList<ETariffaCondivisa> getTariffe(Current __current) {
+		// TODO Auto-generated method stub
+		return this.tariffe;
+	}
 	
 	
 }

@@ -507,7 +507,6 @@ public ArrayList<ETaskCondiviso> getListTaskConsulenteByManager(
 		foundation.EDipendente_ETask foundationEDipTAsk[]=foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery(null,null);
 		//adesso passo da hibernate a ice
 		ArrayList<ETaskCondiviso> list = new ArrayList<ETaskCondiviso>();
-		
 		for (int i = 0; i < foundationEDipTAsk.length; i++) 
 		{ 
 			if(foundationEDipTAsk[i].getEdipendente().getID()==consulente.getId())

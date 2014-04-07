@@ -171,6 +171,7 @@ module EntityCondivise{
 	
 		
 		bool getAbilitato();
+		listTariffe getTariffe();
 		JavaObj getAssegnato();
 		JavaObj getRevocato();
 		listTRLavorativo getListTRL();
