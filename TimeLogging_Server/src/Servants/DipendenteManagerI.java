@@ -1,7 +1,9 @@
 package Servants;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
 import foundation.EDipendente;
@@ -329,35 +331,12 @@ public class DipendenteManagerI extends _DipendenteManagerDisp {
 		  else // se l'attività è un task 
 		  {
 			  foundation.EDipendente_ETask foundationEDT[]= foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery("ETaskID="+attivita.id, null);
-			 
-			  //prendo i task del sottoprogetto
-				
-			/*  for(int j = 0; j < foundationT.length; j++)
-					{
-						listT.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationT[j])); 
-					}	
-			*/
+
 			  for(int k=0;k<foundationEDT.length;k++)
 				{
-					if (listC.isEmpty())
-						listC.add((EConsulenteCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationEDT[k].getEdipendente()) );
-					
-					else
-					{ //Se nella lista non ci sono duplicati allora inserisco i dipendenti
-						boolean trovato=false;
-						for(int z=0; z<listC.size(); z++)
-						{
-							if( listC.get(z).getId()==listT.get(k).getDipendente().getId())
-							  	trovato=true;
-						}
-						if (!trovato) 
-						{   
-							listC.add((EConsulenteCondiviso) listT.get(k).getDipendente());
-						}
-					}
+					listC.add((EConsulenteCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationEDT[k].getEdipendente()) );	
 				}
-		  }
-								
+		  }								
 		  }
 			catch (Exception e) {
 			e.printStackTrace();
@@ -390,6 +369,44 @@ public class DipendenteManagerI extends _DipendenteManagerDisp {
 			
 			}
 			return null;
+	}
+
+	@Override
+	public Timestamp[] getListInizioDipendenti(EAttivitaCondivisa attivita,
+			Current __current) {
+		// TODO Auto-generated method stub
+		Timestamp[] list = null;
+		try {
+			foundation.EDipendente_ETask foundationEDT[]= foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery("ETaskID="+attivita.id, null);
+			list = new Timestamp[foundationEDT.length]; //array di consulenti
+			for(int k=0;k<foundationEDT.length;k++)
+			{
+				list[k] = foundationEDT[k].getInizio();	
+			}
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public Timestamp[] getListFineDipendenti(EAttivitaCondivisa attivita,
+			Current __current) {
+		// TODO Auto-generated method stub
+		Timestamp[] list = null;
+		try {
+			foundation.EDipendente_ETask foundationEDT[]= foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery("ETaskID="+attivita.id, null);
+			list = new Timestamp[foundationEDT.length]; //array di consulenti
+			for(int k=0;k<foundationEDT.length;k++)
+			{
+				list[k] = foundationEDT[k].getFine();	
+			}
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 

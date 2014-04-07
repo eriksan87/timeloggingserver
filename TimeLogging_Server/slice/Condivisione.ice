@@ -218,6 +218,7 @@ class ETimeRecordNonLavorativoCondiviso extends ETimeRecordCondiviso
     sequence<::Condivisione::EntityCondivise::ESottoprogettoCondiviso> listaSottoProgetti;
     
     sequence<JavaObj> proroghe;
+    sequence<JavaObj> date;
 	
 	class EProgettoCondiviso extends EAttivitaCondivisa
 	{
@@ -325,6 +326,8 @@ interface DipendenteManager
    		::Condivisione::EntityCondivise::listaConsulenti getListConsulenti(::Condivisione::EntityCondivise::EDipendenteCondiviso dipendente);
    		::Condivisione::EntityCondivise::listaManager getListManager();
    		::Condivisione::EntityCondivise::listaDipendenti getListDipendentiAttivita(::Condivisione::EntityCondivise::EAttivitaCondivisa progetto);
+   		::Condivisione::EntityCondivise::date getListInizioDipendenti(::Condivisione::EntityCondivise::EAttivitaCondivisa attivita);
+   		::Condivisione::EntityCondivise::date getListFineDipendenti(::Condivisione::EntityCondivise::EAttivitaCondivisa attivita);
   		::Condivisione::EntityCondivise::listaDipendenti getListAllDipendenti();
   };
 

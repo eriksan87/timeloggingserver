@@ -502,8 +502,12 @@ public ArrayList<ETaskCondiviso> getListTaskConsulenteByManager(
 		
 		for(int z=0; z<foundationSottoprogetto.length; z++) 
 			{
-			listTaskBySP.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundation.ETaskDAO.loadETaskByQuery("ESottoprogettoID="+foundationSottoprogetto[z].getID(), null)));
+				foundation.ETask foundationTasks[]=foundation.ETaskDAO.listETaskByQuery("ESottoprogettoID="+foundationSottoprogetto[z].getID(), null);
+				for(int k=0; k<foundationTasks.length; k++){
+					listTaskBySP.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationTasks[k]));
+				}
 			}
+		
 		foundation.EDipendente_ETask foundationEDipTAsk[]=foundation.EDipendente_ETaskDAO.listEDipendente_ETaskByQuery(null,null);
 		//adesso passo da hibernate a ice
 		ArrayList<ETaskCondiviso> list = new ArrayList<ETaskCondiviso>();
@@ -537,7 +541,10 @@ public ArrayList<ETaskCondiviso> getListTaskByManager(
 		
 		for(int z=0; z<foundationSottoprogetto.length; z++) 
 			{
-			listTaskBySP.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundation.ETaskDAO.loadETaskByQuery("ESottoprogettoID="+foundationSottoprogetto[z].getID(), null)));
+			foundation.ETask foundationTasks[]=foundation.ETaskDAO.listETaskByQuery("ESottoprogettoID="+foundationSottoprogetto[z].getID(), null);
+			for(int k=0; k<foundationTasks.length; k++){
+				listTaskBySP.add((ETaskCondiviso) EntityMappersFactory.getInstance().HibernateToIceFactory(foundationTasks[k]));
+			}
 			}
 		return listTaskBySP;
 		}	
